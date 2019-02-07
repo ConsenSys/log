@@ -43,11 +43,6 @@ type Options struct {
 
 type Option func(*Options)
 
-type LogrusLogger struct {
-	*logrus.Entry
-}
-
-
 
 func New(loggerName string, setters ...Option) *logrus.Entry {
 
@@ -63,24 +58,12 @@ func New(loggerName string, setters ...Option) *logrus.Entry {
 		Out:       os.Stdout,
 	}
 
-	entry := logrus.NewEntry(logger).WithFields(logrus.Fields{
+	return logrus.NewEntry(logger).WithFields(logrus.Fields{
 		"logger": loggerName,
 	})
-  return LogrusLogger{entry}
 }
 
-func (l LogrusLogger) Log(keyvals ...interface{}) error {
-	if len(keyvals)%2 == 0 {
-		fields := logrus.Fields{}
-		for i := 0; i < len(keyvals); i += 2 {
-			fields[fmt.Sprint(keyvals[i])] = keyvals[i+1]
-		}
-		l.WithFields(fields).Info()
-	} else {
-		l.Info(keyvals)
-	}
-	return nil
-}
+
 
 func Level(level LogLevel) Option {
 	return func(options *Options) {
