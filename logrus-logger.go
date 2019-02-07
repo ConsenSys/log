@@ -8,7 +8,7 @@ type LogrusLogger struct {
 	*logrus.Entry
 }
 
-func NewLogrusLogger(entry *logrus.Entry){
+func NewLogrusLogger(entry *logrus.Entry) LogrusLogger{
 	return LogrusLogger{entry}
 }
 
