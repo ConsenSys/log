@@ -1,5 +1,9 @@
 package log
 
+import (
+	"github.com/sirupsen/logrus"
+)
+
 type LogrusLogger struct {
 	*logrus.Entry
 }
